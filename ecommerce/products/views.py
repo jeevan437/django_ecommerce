@@ -14,6 +14,16 @@ def get_stores(request):
         data = Stores.objects.all().order_by('id')
         search_data = request.GET.get('search_store')
 
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(data, 4)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+
         if search_data is not None:
             data = data.filter(Q(name__icontains=search_data) | Q(address__icontains = search_data ) ).order_by('id')
         return render(request, 'get_stores.html',
