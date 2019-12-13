@@ -1,8 +1,16 @@
 {% extends "base.html" %}
-<body>
 {% block content %}
+
+<body>
 <div class="panel panel-default">
     <div class="panel-heading" style="text-align:center;" >Store Details</div>
+
+    <form action="{% url 'store_details' %}" type="get" style="margin :0" method="get" accept-charset="utf-8">
+    <input id="search_input" type="text" name="search_store" value="{{search_store}}" placeholder="search for something">
+    <button id="search-btn" type="submit">Submit</button>
+</form>
+
+    {% if stores_data %}
     <table class="table table-striped table-bordered table-hover">
         <colgroup>
             <col class="col-xs-2">
@@ -13,25 +21,36 @@
         </colgroup>
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Contact</th>
                 <th>Address</th>
                 <th>Reviews</th>
+                <th>Delete Stores</th>
+                <th>Update Stores</th>
             </tr>
         </thead>
         <tbody>
         {% for data in stores_data %}
             <tr>
+                <td>{{data.id}}</td>
                 <td>{{data.name}}</td>
                 <td>{{data.email }}</td>
                 <td>{{data.contact}}</td>
                 <td>{{ data.address }}</td>
                 <td>{{ data.reviews  }}</td>
+                <td><a href="products/delete/{{data.id}}">Delete</a></td>
+                <td><a href="products/update/{{data.id}}">Update</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p>No Matches found</p>
+    {% endif %}
+
+
 </div>
-{% endblock content %}
 </body>
+{% endblock %}
