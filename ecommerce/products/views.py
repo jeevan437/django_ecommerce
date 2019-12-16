@@ -1,9 +1,11 @@
 from django.shortcuts import render,reverse,redirect
 from django.http import HttpResponseRedirect
-from .models import Stores
+from .models import Stores,Products
 from django.db.models import Q
-from .forms import StoreForm
+from .forms import StoreForm,ProductsForm
 from django.core.paginator import Paginator
+from django.views.generic import ListView
+from django.views.generic.edit import FormView
 # Create your views here.
 
 def home(request):
@@ -14,15 +16,6 @@ def get_stores(request):
         data = Stores.objects.all().order_by('id')
         search_data = request.GET.get('search_store')
 
-        page = request.GET.get('page', 1)
-
-        paginator = Paginator(data, 4)
-        try:
-            data = paginator.page(page)
-        except PageNotAnInteger:
-            data = paginator.page(1)
-        except EmptyPage:
-            data = paginator.page(paginator.num_pages)
 
         if search_data is not None:
             data = data.filter(Q(name__icontains=search_data) | Q(address__icontains = search_data ) ).order_by('id')
@@ -99,4 +92,23 @@ def store_update(request, pid):
        store_form.save()
        return redirect(get_stores)
     return render(request, 'update.html', {'store_form':store_form})
+
+
+class GetProducts(ListView):
+
+    model = Products
+    queryset = Products.objects.all()
+    template_name = 'get_products.html'
+    context_object_name= 'products_data'
+
+class AddProducts(FormView):
+
+    template_name = 'add_products.html'
+    form_class = ProductsForm
+    success_url = 'home'
+
+    def form_valid(self, form):
+        form.save()
+        # return redirect(self.success_url)
+        return redirect('get_products')
 

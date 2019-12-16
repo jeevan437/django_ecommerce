@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading" style="text-align:center;" >Product Details</div>
+
+    <table class="table table-striped table-bordered table-hover">
+        <colgroup>
+            <col class="col-xs-2">
+            <col class="col-xs-3">
+            <col class="col-xs-3">
+            <col class="col-xs-2">
+            <col class="col-xs-2">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Store Id</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Price</th>
+                <th>Manufactured Date</th>
+                <th>Available</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for data in products_data %}
+            <tr>
+                <td>{{data.store_id}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.location }}</td>
+                <td>{{data.price}}</td>
+                <td>{{ data.manufactured_data }}</td>
+                <td>{{ data.available  }}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+</div>
+</body>
+{% endblock %}

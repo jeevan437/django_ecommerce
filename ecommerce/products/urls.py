@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
-from .views import get_stores,add_stores,success,home,delete_store,store_update
+from .views import get_stores,add_stores,success,home,delete_store,store_update,\
+    GetProducts,AddProducts
 
 urlpatterns = [
 
@@ -11,6 +12,10 @@ urlpatterns = [
 
     url(r'delete/(?P<pid>[\d]+)/$', delete_store),
     url(r'update/(?P<pid>[\d]+)/$', store_update),
+
+    url(r'get_products', GetProducts.as_view(), name='get_products'),
+    url(r'add_products', AddProducts.as_view(), name='add_products'),
+
 
 
 ]

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% comment %} Template Inheritance {% endcomment %}
+{% block content %}
+<body>
+    <h1 style="font-size:60px;" align="center">Add Products To Store</h1>
+    <p align="center"> Add new products.</p>
+    <div align="center">
+    <form method="POST">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+</body>
+
+{% endblock %}
