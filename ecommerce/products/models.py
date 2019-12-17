@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 # Create your models here.
 
@@ -13,6 +14,7 @@ class Stores(models.Model):
     contact = models.CharField(max_length = 10)
     address = models.TextField(max_length = 50)
     reviews = models.IntegerField(null = True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -25,6 +27,7 @@ class Products(models.Model):
     price = models.IntegerField()
     manufactured_data = models.DateField()
     available = models.CharField(max_length = 5,choices = available_choices)
+
 
     def __str__(self):
         return self.name
