@@ -69,7 +69,18 @@ TEMPLATES = [
     },
 ]
 
+SESSION_ENGINE = "django.contrib.sessions.backends.file"
+SESSION_FILE_PATH = 'D:/django_ecommerce/sessions'
+
+
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
+
+CACHES = {
+   'default': {
+      'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+      'LOCATION': 'cache_table',
+   }
+}
 
 
 # Database

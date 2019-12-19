@@ -6,11 +6,13 @@ from .forms import StoreForm,ProductsForm
 from django.core.paginator import Paginator
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
+
+from django.views.decorators.cache import cache_page
 # Create your views here.
 
 def home(request):
     return render(request,'base.html')
-
+@cache_page(60 * 10)
 def get_stores(request):
     if request.method == 'GET':
         data = Stores.objects.all().order_by('id')
